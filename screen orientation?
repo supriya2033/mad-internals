@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:background="#f5f5f5">
+
+    <Button
+        android:id="@+id/btnToggleOrientation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Switch Orientation"
+        android:padding="16dp"
+        android:background="@color/purple_500"
+        android:textColor="#ffffff"
+        android:textSize="16sp" />
+</LinearLayout>
+
+
+java
+package com.example.orientationtoggle;
+
+import android.content.pm.ActivityInfo;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    private Button btnToggleOrientation;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        btnToggleOrientation = findViewById(R.id.btnToggleOrientation);
+
+        btnToggleOrientation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int currentOrientation = getResources().getConfiguration().orientation;
+
+                if (currentOrientation == android.content.res.Configuration.ORIENTATION_PORTRAIT) {
+                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                    Toast.makeText(MainActivity.this, "Switched to Landscape", Toast.LENGTH_SHORT).show();
+                } else {
+                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                    Toast.makeText(MainActivity.this, "Switched to Portrait", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+}
